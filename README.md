@@ -2,7 +2,7 @@
 * Endpoints: 
     https://shopperstop-nlqi.onrender.com/products
 # Deployment 
-    render 
+    render  - dashboard - https://dashboard.render.com/
 
 
 # Tools and techs
