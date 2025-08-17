@@ -51,5 +51,10 @@ public class ProductController {
         service.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/bulk")
+    public List<Product> createProducts(@RequestBody List<Product> products) {
+        return service.createProducts(products);
+    }
    
 }
