@@ -3,6 +3,9 @@
     https://shopperstop-nlqi.onrender.com/products
 # Deployment 
     render  - dashboard - https://dashboard.render.com/
+    cold-drestrt solution - 
+        - https://shopperstop-nlqi.onrender.com/health
+        - https://stats.uptimerobot.com/gdOh25zc5t/801183782
 
 
 # Tools and techs
