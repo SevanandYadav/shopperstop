@@ -1,37 +1,55 @@
 package com.arsenal.ecomm.shopperstop.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.arsenal.ecomm.shopperstop.entity.Product;
+import com.arsenal.ecomm.shopperstop.service.ProductService;
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-    //private final ProductRepository repository;
+    private final ProductService service;
 
-    // public ProductController(ProductRepository repository) {
-    //     this.repository = repository;
-    // }
+    public ProductController(ProductService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public List<Product> getAllProducts() {
-       // return repository.findAll();
-       List<Product> products  = getAllMockProducts();
-       return products;
+        return service.getAllProducts();
     }
-    List<Product>  getAllMockProducts(){
-        List<Product> products = new ArrayList<>();
-        for(int i = 1; i <= 5; i++) {
-            Product product = new Product();
-            product.setId((long) i);
-            product.setName("Product " + i);
-            product.setPrice(10.0 * i);
-            products.add(product);
-        }
-        return products;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+        return service.getProductById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
+
+    @PostMapping
+    public Product createProduct(@RequestBody Product product) {
+        return service.createProduct(product);
+    }
+
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable Long id, @RequestBody Product product) {
+        return service.updateProduct(id, product);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+        service.deleteProduct(id);
+        return ResponseEntity.noContent().build();
+    }
+   
 }
